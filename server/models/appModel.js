@@ -3,6 +3,10 @@ const driver = connection().getInstance();
 const request = require('request');
 const async = require('async');
 const isDebugLocal = false;
+
+
+const smsURL = 'http://api.msg91.com/api/sendhttp.php?country=91&sender=AGARTA&route=4&authkey=239451AvNPnFqq0Nx5baa6ad7';
+
 AppModel = {
     userRegistration: function (objdata, callback) {
         console.log(objdata);
@@ -40,6 +44,19 @@ AppModel = {
 
 
     },
+    
+    
+    updatedevice: function (objdata, callback) {
+
+        console.log(objdata);
+        var query = ` match (u:User) where ID(u)=${objdata.id } set u.devID="${objdata.tokenid}" return u`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+    },
+    
     spotRegistration: function (objdata, callback) {
 
         var query = `merge (floor:sFloor{fno:${objdata.floorno}})
@@ -92,6 +109,7 @@ AppModel = {
         driver.cypher({'query': query}, (err, results) => {
             if (err)
                 throw err;
+            
 
             async.each(results, (tokendetail) => {
               //  console.log(JSON.stringify(tokendetail));
@@ -141,11 +159,17 @@ AppModel = {
                 }
 
             });
+            
+             async.each(results, (mobiledetail) => {/*${mobiledetail.mobile}*/
+                messagetxt = `mobiles=${mobiledetail.mobile}&message=Hi%20${mobiledetail.name[0].toLocaleUpperCase() + (mobiledetail.name.substring)(1)},%20New%20Question%20Published,%20pls%20visit%20https://playnwin.herokuapp.com/${notificationData.actionUrl}`;
+                request({url: smsURL + "&" + messagetxt, method: 'GET', }, function (error, response, body) {
+                    console.log(`>>>>>>>Messgae set to>${mobiledetail.mobile} ${mobiledetail.name}`);
 
+                });
 
-
-
-
+            });
+            
+            
         });
 
     },
@@ -181,11 +205,22 @@ AppModel = {
             status = "publish";
         }
 
+       
+      
+
         if (objdata.type === 'poll') {
             query = `match (poll:Poll) where ID(poll)=${objdata.id} set poll.status='${status}' return poll.status as status ,ID(poll) as id`;
         } else {
             query = `match (question:Question) where ID(question)=${objdata.id} set question.status='${status}' return question.status as status ,ID(question) as id`;
         }
+        
+           var obj = {
+            actionUrl: `question/${objdata.id}/${objdata.type}`,
+            title: `New  ${objdata.type} is publised !!!!`,
+            messgae: `New question published !!!`
+        };
+         this.notificationToAll(obj);
+        
 
         driver.cypher({'query': query}, function (err, results) {
             if (err)
