@@ -28,7 +28,7 @@ AppModel = {
          match (r:Referral{code:"${objdata.referredby}"})
          merge (r)-[:REFERRED_BY]-(u) return ID(u) as id`;
         }
-    
+
         /*
          
          var query = `merge (floor:Floor{fno:${objdata.floorno}})
@@ -44,8 +44,6 @@ AppModel = {
 
 
     },
-    
-    
     updatedevice: function (objdata, callback) {
 
         console.log(objdata);
@@ -56,7 +54,6 @@ AppModel = {
             callback(results);
         });
     },
-    
     spotRegistration: function (objdata, callback) {
 
         var query = `merge (floor:sFloor{fno:${objdata.floorno}})
@@ -109,10 +106,10 @@ AppModel = {
         driver.cypher({'query': query}, (err, results) => {
             if (err)
                 throw err;
-            
+
 
             async.each(results, (tokendetail) => {
-              //  console.log(JSON.stringify(tokendetail));
+                //  console.log(JSON.stringify(tokendetail));
 
 
                 if (tokendetail.hasOwnProperty('deviceid')) {
@@ -159,8 +156,8 @@ AppModel = {
                 }
 
             });
-            
-             async.each(results, (mobiledetail) => {/*${mobiledetail.mobile}*/
+
+            async.each(results, (mobiledetail) => {/*${mobiledetail.mobile}*/
                 messagetxt = `mobiles=${mobiledetail.mobile}&message=Hi%20${mobiledetail.name[0].toLocaleUpperCase() + (mobiledetail.name.substring)(1)},%20New%20Question%20Published,%20pls%20visit%20https://playnwin.herokuapp.com/${notificationData.actionUrl}`;
                 request({url: smsURL + "&" + messagetxt, method: 'GET', }, function (error, response, body) {
                     console.log(`>>>>>>>Messgae set to>${mobiledetail.mobile} ${mobiledetail.name}`);
@@ -168,8 +165,8 @@ AppModel = {
                 });
 
             });
-            
-            
+
+
         });
 
     },
@@ -203,24 +200,33 @@ AppModel = {
         var query = '', status = "save";
         if (objdata.status === 'save') {
             status = "publish";
+            var obj = {
+                actionUrl: `question/${objdata.id}/${objdata.type}`,
+                title: `New  ${objdata.type} is publised !!!!`,
+                messgae: `New question published !!!`
+            };
+
+        } else {
+
+            var obj = {
+                actionUrl: `mainpage`,
+                title: `One Question unpublished !!!!`,
+                messgae: `Please attempt your previous Question  if any !!!!`
+            };
         }
 
-       
-      
+
+
 
         if (objdata.type === 'poll') {
             query = `match (poll:Poll) where ID(poll)=${objdata.id} set poll.status='${status}' return poll.status as status ,ID(poll) as id`;
         } else {
             query = `match (question:Question) where ID(question)=${objdata.id} set question.status='${status}' return question.status as status ,ID(question) as id`;
         }
-        
-           var obj = {
-            actionUrl: `question/${objdata.id}/${objdata.type}`,
-            title: `New  ${objdata.type} is publised !!!!`,
-            messgae: `New question published !!!`
-        };
-         this.notificationToAll(obj);
-        
+
+
+        this.notificationToAll(obj);
+
 
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -253,7 +259,7 @@ AppModel = {
             flag = false;
         }
 
-       // console.log(query);
+        // console.log(query);
         if (flag) {
             driver.cypher({'query': query}, function (err, results) {
                 if (err)
@@ -378,7 +384,7 @@ AppModel = {
     },
     spotcount: function (objdata, callback) {
         var query = `optional match (u:sUser)-[]-(l:sLocation)-[]-(f:sFloor) return f.fno as floorno, count(distinct u) as userCount order by userCount desc`;
-      //  console.log(query)
+        //  console.log(query)
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
@@ -387,7 +393,7 @@ AppModel = {
     },
     floorwiseuser: function (objdata, callback) {
         var query = ` match (u:User)-[]-(l:Location)-[]-(f:Floor{fno:${objdata.floorid}}) return count(distinct u) as userCount , l.projectName as projName, l.lid as proid`;
-       // console.log(query);
+        // console.log(query);
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
@@ -421,27 +427,23 @@ AppModel = {
             callback(results);
         });
     },
-    
-    
-    mostdenFloor:function(objdata, callback){
-         var query = `match (u:User)-[]-(l:Location)-[]-(f:Floor) return f.fno as fn, count(DISTINCT u) as userCount order by userCount desc limit 1`;
+    mostdenFloor: function (objdata, callback) {
+        var query = `match (u:User)-[]-(l:Location)-[]-(f:Floor) return f.fno as fn, count(DISTINCT u) as userCount order by userCount desc limit 1`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
             callback(results);
         });
-        
+
     },
-    
-    
-     mostdenLoc:function(objdata, callback){
-         var query = `match (u:User)-[]-(l:Location) return l.projectName as blockname,l.lid as loc, count(DISTINCT u) as userCount order by userCount desc limit 1`;
+    mostdenLoc: function (objdata, callback) {
+        var query = `match (u:User)-[]-(l:Location) return l.projectName as blockname,l.lid as loc, count(DISTINCT u) as userCount order by userCount desc limit 1`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
             callback(results);
         });
-        
+
     }
 
 }
