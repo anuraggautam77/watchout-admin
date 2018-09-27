@@ -205,17 +205,8 @@ AppModel = {
                 title: `New  ${objdata.type} is publised !!!!`,
                 messgae: `New question published !!!`
             };
-
-        } else {
-
-            var obj = {
-                actionUrl: `mainpage`,
-                title: `One Question unpublished !!!!`,
-                messgae: `Please attempt your previous Question  if any !!!!`
-            };
+            this.notificationToAll(obj);
         }
-
-
 
 
         if (objdata.type === 'poll') {
@@ -225,7 +216,7 @@ AppModel = {
         }
 
 
-        this.notificationToAll(obj);
+
 
 
         driver.cypher({'query': query}, function (err, results) {
