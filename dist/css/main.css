@@ -1916,23 +1916,23 @@ a {
   .admin-allbox .cross-disable {
     background-color: #ebebe4; }
   .admin-allbox .brown-tone {
-    background-color: #bd0026;
+    background: linear-gradient(to right, #870000, #190a05);
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .slightly-blue {
-    background-color: #f03b20;
+    background: linear-gradient(to right, #333333, #dd1818);
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .moderate-orange {
-    background-color: #fd8d3c;
+    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .bright-orange {
-    background-color: #fecc5c;
+    background: linear-gradient(to right, #fdc830, #f37335);
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .vivid-orange {
-    background-color: #ffffb2;
+    background: linear-gradient(#fffc00, white);
     border-color: #d8b868; }
   .admin-allbox .cross-disable {
     cursor: not-allowed; }

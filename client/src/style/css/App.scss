@@ -261,7 +261,7 @@ $sidebar-background-orange:      #ff8f5e !default;
 $sidebar-font-orange:            #772510 !default;
 $sidebar-subtitle-orange:        #e95e37 !default;
 
- 
+
 body {
     padding-top: 0;
     padding-bottom: 0;
@@ -703,7 +703,7 @@ a{
         padding-top: 14px;
         .icon-size{
             font-size: 25px;
-           
+
         }
     }   
 }
@@ -746,37 +746,44 @@ a{
          '1.00': 'rgb(255,0,0)*/    
 
     .brown-tone{
-      //  background-color:#85671b;
-       background-color:#bd0026;
+        //  background-color:#85671b;
+        background:linear-gradient(to right, rgb(135, 0, 0), rgb(25, 10, 5));
+
         color:#fff;
         border-color: #ffc533;
     }
 
     .slightly-blue{
-      //  background-color:#bc9226; 
-       background-color:#f03b20;
+        //  background-color:#bc9226; 
+        //  background-color:#f03b20;
+        background:linear-gradient(to right, rgb(51, 51, 51), rgb(221, 24, 24));
+
         color:#fff;
         border-color: #ffc533;
     }
     .moderate-orange{
         //background-color:#d8b868;
-         background-color:#fd8d3c;
+        // background-color:#fd8d3c;
+        background:linear-gradient(to right, rgb(131, 58, 180), rgb(253, 29, 29), rgb(252, 176, 69));
+
         color:#fff;
         border-color: #ffc533;
     }
     .bright-orange{
-       // background-color:#deab2c;
-        background-color:#fecc5c;
+        // background-color:#deab2c;
+        // background-color:#fecc5c;
+        background:linear-gradient(to right, rgb(253, 200, 48), rgb(243, 115, 53));
         color:#fff;
         border-color: #ffc533;
     }
 
     .vivid-orange{
         //background-color:#ffc533;
-         background-color:#ffffb2;
+     //   background-color:#ffffb2;
+        background:linear-gradient(rgb(255, 252, 0), rgb(255, 255, 255));
         border-color: #d8b868;
     }
-    
+
     .cross-disable{
         cursor: not-allowed;
     }
@@ -808,26 +815,26 @@ a{
         }
     }
     .brown-tone{
-      //  background-color:#85671b;
-       background-color:#bd0026;
+        //  background-color:#85671b;
+        background-color:#bd0026;
         color:#fff;
         border-color: #ffc533;
     }
 
     .slightly-blue{
-      //  background-color:#bc9226; 
-       background-color:#f03b20;
+        //  background-color:#bc9226; 
+        background-color:#f03b20;
         color:#fff;
         border-color: #ffc533;
     }
     .moderate-orange{
         //background-color:#d8b868;
-         background-color:#fd8d3c;
+        background-color:#fd8d3c;
         color:#fff;
         border-color: #ffc533;
     }
     .bright-orange{
-       // background-color:#deab2c;
+        // background-color:#deab2c;
         background-color:#fecc5c;
         color:#fff;
         border-color: #ffc533;
@@ -835,7 +842,7 @@ a{
 
     .vivid-orange{
         //background-color:#ffc533;
-         background-color:#ffffb2;
+        background-color:#ffffb2;
         border-color: #d8b868;
     }
     .cross-disable{
