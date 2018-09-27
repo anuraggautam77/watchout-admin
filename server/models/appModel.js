@@ -157,12 +157,16 @@ AppModel = {
 
             });
 
-            async.each(results, (mobiledetail) => {/*${mobiledetail.mobile}*/
-                messagetxt = `mobiles=${mobiledetail.mobile}&message=Hi%20${mobiledetail.name[0].toLocaleUpperCase() + (mobiledetail.name.substring)(1)},%20New%20Question%20Published,%20pls%20visit%20https://playnwin.herokuapp.com/${notificationData.actionUrl}`;
-                request({url: smsURL + "&" + messagetxt, method: 'GET', }, function (error, response, body) {
-                    console.log(`>>>>>>>Messgae set to>${mobiledetail.mobile} ${mobiledetail.name}`);
-
-                });
+            var phones = [];
+            async.each(results, (mobiledetail) => {
+                if (!phones.includes(mobiledetail.mobile)) {
+                    messagetxt = `mobiles=${mobiledetail.mobile}&message=Hi%20${mobiledetail.name[0].toLocaleUpperCase() + (mobiledetail.name.substring)(1)},%20New%20Question%20Published,%20pls%20visit%20https://playnwin.herokuapp.com/${notificationData.actionUrl}`;
+                    request({url: smsURL + "&" + messagetxt, method: 'GET', }, function (error, response, body) {
+                        console.log(`>>>>>>>Messgae set to>${mobiledetail.mobile} ${mobiledetail.name}`);
+                    });
+                    phones.push(mobiledetail.mobile);
+                }
+             
 
             });
 
@@ -214,10 +218,6 @@ AppModel = {
         } else {
             query = `match (question:Question) where ID(question)=${objdata.id} set question.status='${status}' return question.status as status ,ID(question) as id`;
         }
-
-
-
-
 
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -411,7 +411,7 @@ AppModel = {
 
     },
     getrefferalcode: function (objdata, callback) {
-        var query = `optional match (ru:User)-[:REFERRAL_CODE]-(r:Referral) optional match (r)-[:REFERRED_BY]-(u:User) return r.code as code,ru.devID  as deviceID,count(u) as userCount, ru.name as name order by userCount desc LIMIT 2`;
+        var query = `optional match (ru:User)-[:REFERRAL_CODE]-(r:Referral) optional match (r)-[:REFERRED_BY]-(u:User) return r.code as code,ru.devID  as deviceID,count(distinct u.phone) as userCount, ru.name as name order by userCount desc LIMIT 2`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
