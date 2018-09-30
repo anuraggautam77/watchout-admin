@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Index from '../components/admin/question/index';
+import '../style/css/user.scss';
  import  AdminHeader from './header/admin'
 
 class CreateQuestion extends Component {

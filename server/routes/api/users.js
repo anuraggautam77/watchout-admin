@@ -28,8 +28,9 @@ const SERVICE_CONST = {
     FLOOR_WISE_COUNT: 'floorwsie',
     ADMIN_REGISTER: 'register',
     ADMIN_LOGIN: 'adminlogin',
-   
-    UPDATE_DEVICE:'updatedeviceid'
+    PLACECART:"placecart",
+    UPDATE_DEVICE:'updatedeviceid',
+    CARTLIST:'cartlist'
 };
 
 module.exports = (apiRoutes) => {
@@ -68,8 +69,6 @@ module.exports = (apiRoutes) => {
 
 
     apiRoutes.post('/authvalidate', function (req, res) {
-        console.log(">>>>>>>>>>");
-        console.log(req.headers['x-access-token']);
         let objCheck = tokenVerify(req, res);
         res.status(objCheck.status).json({status: objCheck.status, message: objCheck.message});
 
@@ -348,5 +347,17 @@ module.exports = (apiRoutes) => {
         });
     });
 
+
+     apiRoutes.post(`/${SERVICE_CONST.PLACECART}`, (req, res) => {
+        AppModel.placecart(req.body, (results) => {
+            res.json({status: "success", result: results});
+        });
+    });
+    
+    apiRoutes.get(`/${SERVICE_CONST.CARTLIST}`, (req, res) => {
+        AppModel.cartlisting(req, (results) => {
+            res.json({status: "success", result: results});
+        });
+    });
 
 };

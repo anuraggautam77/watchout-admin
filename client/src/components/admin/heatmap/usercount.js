@@ -45,15 +45,15 @@ class Usercount extends Component {
  
         return (
                 <div>
-                    <div className="col-md-3">
+                    <div className="col-md-2">
                         <div className="panel panel-default">
                             <div className="panel-heading"><b>Registered user</b></div>
                             <div className="panel-body text-center">
-                                <b> Count <h1>{this.state.usercount}</h1> </b>
+                                <b> Count <h1><i className="glyphicon glyphicon-user"></i> {this.state.usercount}</h1> </b>
                             </div>
                         </div>
                     </div>  
-                    <div className="col-md-3">
+                    <div className="col-md-2">
                         <div className="panel panel-default">
                             <div className="panel-heading"><b>Spot Registration Count</b></div>
                             <div className="panel-body text-center">

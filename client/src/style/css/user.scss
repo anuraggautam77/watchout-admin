@@ -1,9 +1,7 @@
 .user-panel{
     
     /* Everything but the jumbotron gets side spacing for mobile first views */
-    h3,h1{
-        font-family: 'Arima Madurai', cursive !important;
-    }
+    
     .header,
     .marketing,
     .footer {
@@ -114,12 +112,7 @@
         font-weight: 600;
     }
 
-    h1, h2, h4, h5, h6,p,a,button {
-        font-family: "Open Sans", "Segoe UI", Frutiger, "Frutiger Linotype", "Dejavu Sans", "Helvetica Neue", Arial, sans-serif;
-        line-height: 1.5em;
-        font-weight: 300;
-    }
-
+    
     .card {
         border: 1px solid #d3d3d3;
         border-radius: .25rem;

@@ -9,7 +9,7 @@ const smsURL = 'http://api.msg91.com/api/sendhttp.php?country=91&sender=AGARTA&r
 
 AppModel = {
     userRegistration: function (objdata, callback) {
-        console.log(objdata);
+        //  console.log(objdata);
         var query = ``;
         if (objdata.referredby == '') {
             query = `merge (floor:Floor{fno:${objdata.floorno}})
@@ -46,7 +46,7 @@ AppModel = {
     },
     updatedevice: function (objdata, callback) {
 
-        console.log(objdata);
+        //  console.log(objdata);
         var query = ` match (u:User) where ID(u)=${objdata.id } set u.devID="${objdata.tokenid}" return u`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -70,10 +70,13 @@ AppModel = {
     createQuestion: function (objdata, callback) {
 
         if (objdata.type === "quiz") {
-            var query = `merge (question:Question{status:'${objdata.status}',qus:'${objdata.title}',op1:'${objdata.option1}',op2:'${objdata.option2}', op3:'${objdata.option3}',op4:'${objdata.option4}',ca:['op${objdata.correct}']}) return question`;
+            var query = `merge (question:Question{status:"${objdata.status}",qus:"${objdata.title}",op1:"${objdata.option1}",op2:"${objdata.option2}", op3:"${objdata.option3}",op4:"${objdata.option4}",ca:['op${objdata.correct}']}) return question`;
         } else {
-            var query = `merge (poll:Poll{status:'${objdata.status}',qus:'${objdata.title}',op1:'${objdata.option1}',op2:'${objdata.option2}', op3:'${objdata.option3}',op4:'${objdata.option4}'}) return poll`;
+            var query = `merge (poll:Poll{status:"${objdata.status}",qus:"${objdata.title}",op1:"${objdata.option1}",op2:"${objdata.option2}", op3:"${objdata.option3}",op4:"${objdata.option4}"}) return poll`;
         }
+
+
+        console.log(query);
 
         driver.cypher({'query': query}, (err, results) => {
             if (err)
@@ -146,7 +149,7 @@ AppModel = {
                                 count++;
                                 if (count === tokencount) {
                                     // callback({message: "Message send to >>" + count + ' Devices', });
-                                    console.log("/////////////////////");
+                                    //   console.log("/////////////////////");
                                     console.log("Message send to >>" + count + ' Devices');
                                     console.log("/////////////////////");
                                 }
@@ -166,7 +169,7 @@ AppModel = {
                     });
                     phones.push(mobiledetail.mobile);
                 }
-             
+
 
             });
 
@@ -365,7 +368,7 @@ AppModel = {
         });
     },
     allusercount: function (objdata, callback) {
-        var query = `optional match (u:User)-[]-(l:Location)-[]-(f:Floor) return f.fno as floorno, count(distinct u) as userCount order by userCount desc`;
+        var query = `optional match (u:User)-[]-(l:Location)-[]-(f:Floor) optional match (l)-[]-(c:Cart) return f.fno as floorno, count(distinct c) as cartCount , count(distinct u) as userCount order by userCount desc`;
         //console.log(query)
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -383,7 +386,8 @@ AppModel = {
         });
     },
     floorwiseuser: function (objdata, callback) {
-        var query = ` match (u:User)-[]-(l:Location)-[]-(f:Floor{fno:${objdata.floorid}}) return count(distinct u) as userCount , l.projectName as projName, l.lid as proid`;
+
+        var query = `match (u:User)-[]-(l:Location)-[]-(f:Floor{fno:${objdata.floorid}}) optional match (l)-[]-(c:Cart) return count(distinct u) as userCount , count(distinct c) as cartCount,collect(distinct c.cartName) as cartName  , l.projectName as projName, l.lid as proid`;
         // console.log(query);
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -435,7 +439,37 @@ AppModel = {
             callback(results);
         });
 
+    },
+    placecart: function (objdata, callback) {
+        console.log(objdata);
+
+      var  query = `merge (floor:Floor{fno:${objdata.floorno}})
+merge (location:Location{lid:"${objdata.lid}", projectName:"${objdata.projectname}"})
+merge (cart:Cart{cartName:"${objdata.cartname}",status:"active"})
+merge (cart)-[:PLACED_IN]-(location)-[:BELONGS_TO]->(floor) with location as loc
+match (u:User)-[]-(loc) return u`;
+        console.log(query)
+
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    cartlisting: function (objdata, callback) {
+
+      var  query = `match (cart:Cart{status:"active"})--(l:Location)-[:BELONGS_TO]-(f:Floor) return ID(cart) as cartid,collect(distinct cart.cartName) as cartName , collect(distinct l.lid) as lid, f.fno as fno`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
     }
+
+
+
 
 }
 
