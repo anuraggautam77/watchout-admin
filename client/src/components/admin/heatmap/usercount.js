@@ -49,7 +49,7 @@ class Usercount extends Component {
                         <div className="panel panel-default">
                             <div className="panel-heading"><b>Registered user</b></div>
                             <div className="panel-body text-center">
-                                <b> Count <h1><i className="glyphicon glyphicon-user"></i> {this.state.usercount}</h1> </b>
+                                <b><h1><i className="glyphicon glyphicon-user"></i> {this.state.usercount}</h1> </b>
                             </div>
                         </div>
                     </div>  
@@ -57,7 +57,7 @@ class Usercount extends Component {
                         <div className="panel panel-default">
                             <div className="panel-heading"><b>Spot Registration Count</b></div>
                             <div className="panel-body text-center">
-                                <b> Count <h1>{this.state.spotcount}</h1> </b>
+                                <b><h1>{this.state.spotcount}</h1> </b>
                             </div>
                         </div>
                     </div>
