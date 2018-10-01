@@ -12,7 +12,8 @@ class Usercount extends Component {
             pollcount: props.pollcount,
             quecount: props.quecount,
             reffcount: props.reffcount,
-            users: props.users
+            users: props.users,
+            rescentuserlist: props.rescentuserlist
         };
     }
     componentWillMount() {
@@ -29,21 +30,51 @@ class Usercount extends Component {
             pollcount: props.pollcount,
             quecount: props.quecount,
             reffcount: props.reffcount,
-            users: props.users
+            users: props.users,
+            rescentuserlist: props.rescentuserlist
         })
     }
     refferalcode() {
 
         var template = this.state.refferal.map((option, i) => {
             return (
-                    <li className={`list-group-item`}  key={i}>  
-                        <strong>{option.name}'s</strong>  ref code <b>{option.code}</b>  <span className="badge" >{option.userCount}</span> 
+                    <li className="item" key={i}>
+                        <div className="product-img">
+                            <i className="glyphicon glyphicon-user"></i>
+                        </div>
+                        <div className="product-info">
+                            <span className="product-description">
+                                <strong>{option.name}'s</strong>  ref code <b>{option.code}</b>  <span className="badge" >{option.userCount}</span>
+                            </span>
+                        </div>
+                    
                     </li>);
         });
         return template;
     }
+    userlisting() {
+        var template = this.state.rescentuserlist.map((option, i) => {
+            return (
+                    <li className="item" key={i}>
+                        <div className="product-img">
+                            <i className="glyphicon glyphicon-user"></i>
+                        </div>
+                        <div className="product-info">
+                            <span className="product-description">
+                                <b> {option.name} </b> from  {option.lid.split("-")[0]}loor, <b>{option.projectname}</b>
+                            </span>
+                        </div>
+                    </li>
+
+
+                    );
+        });
+        return template;
+
+
+    }
     render() {
-        console.log(this.state)
+        console.log(this.state);
         return (
                 <div>
                     <div className="col-md-2">
@@ -64,17 +95,17 @@ class Usercount extends Component {
                 
                         <div className="small-box colorfive">
                             <div className="inner">
-                             
-                             {
-                             (()=>{
-                                if(this.state.reffcount.length>0){
-                                    return (<h2>{this.state.reffcount[0].usercount}</h2>)   
+                
+                                {
+                                    (() => {
+                                        if (this.state.reffcount.length > 0) {
+                                            return (<h2>{this.state.reffcount[0].usercount}</h2>)
                                 }
-                                 
-                             })()
-                                
-                              }
-                             
+                
+                                })()
+                
+                                }
+                
                                 <h4>Total Referrals </h4>
                             </div>
                             <div className="icon">
@@ -90,17 +121,17 @@ class Usercount extends Component {
                 
                         <div className="small-box colorsix">
                             <div className="inner">
-                               {
-                             (()=>{
-                                if(this.state.quecount.length>0){
-                                    return (<h2>{this.state.quecount[0].count}</h2>)   
+                                {
+                                            (() => {
+                                                if (this.state.quecount.length > 0) {
+                                                    return (<h2>{this.state.quecount[0].count}</h2>)
                                 }
-                                 
-                             })()
-                                
-                              }
                 
-                            <h4> Quiz Published</h4>
+                                })()
+                
+                                }
+                
+                                <h4> Quiz Published</h4>
                             </div>
                             <div className="icon">
                                 <i className="glyphicon glyphicon-tasks"></i>
@@ -114,18 +145,18 @@ class Usercount extends Component {
                         <div className="small-box colorfour">
                             <div className="inner">
                                 {
-                             (()=>{
-                                if(this.state.pollcount.length>0){
-                                    return (<h2>{this.state.pollcount[0].count}</h2>)   
+                                                    (() => {
+                                                        if (this.state.pollcount.length > 0) {
+                                                            return (<h2>{this.state.pollcount[0].count}</h2>)
                                 }
-                                 
-                             })()
-                                
-                              }
+                
+                                })()
+                
+                                }
                                 <h4>Poll Published </h4>
                             </div>
                             <div className="icon">
-                                <i className="glyphicon glyphicon-tasks"></i>
+                                <i className="icon-bar-chart"></i>
                             </div>   
                 
                             <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
@@ -136,15 +167,15 @@ class Usercount extends Component {
                 
                         <div className="small-box colorthree">
                             <div className="inner">
-                               {
-                             (()=>{
-                                if((this.state.pollcount.length>0) || (this.state.quecount.length>0)){
-                                    return (<h2>{this.state.pollcount[0].usercount+ this.state.quecount[0].usercount}</h2>)   
+                                {
+                                                            (() => {
+                                                                if ((this.state.pollcount.length > 0) || (this.state.quecount.length > 0)) {
+                                                                    return (<h2>{this.state.pollcount[0].usercount + this.state.quecount[0].usercount}</h2>)
                                 }
-                                 
-                             })()
-                                
-                              }
+                
+                                })()
+                
+                                }
                                 <h4> User Engagement </h4>
                             </div>
                             <div className="icon">
@@ -156,73 +187,102 @@ class Usercount extends Component {
                     </div>
                 
                     <div className="col-md-2">
-                
                         <div className="small-box colortwo">
                             <div className="inner">
-                                <h2>{this.state.spotcount}</h2>
+                                <h2>{
+                                                                        this.state.spotcount}</h2>
                                 <h4>Spot Registrations</h4>
                             </div>
                             <div className="icon">
-                                <i className="glyphicon glyphicon-user"></i>
+                                <i className="icon-signin"></i>
                             </div>   
                 
                             <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
-                
-                
-                
                     </div>
                 
-                    <div className="col-md-3">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><b>Refferal Code </b></div>
-                            <div className="panel-body text-center">
-                                {  (() => this.refferalcode())() }
+                
+                
+                
+                
+                    <div className="col-md-4">         
+                
+                        <div className="box box-primary">
+                            <div className="box-header with-border">
+                                <h3 className="box-title">Recent registered users</h3>
+                            </div>
+                
+                            <div className="box-body" style={{"overflow-y":"scroll", "height":"100px"}}>
+                                <ul className="products-list product-list-in-box">
+                                    {  (() => this.userlisting())() }
+                                </ul>
+                            </div>
+                            <div className="box-footer text-center">
                             </div>
                         </div>
+                    </div>            
+                    <div className="col-md-4">
+                        <div className="box box-primary">
+                            <div className="box-header with-border">
+                                <h3 className="box-title">Refferal Code</h3>
+                            </div>
+                
+                            <div className="box-body">
+                                <ul className="products-list product-list-in-box">
+                                    {  (() => this.refferalcode())() }
+                                </ul>
+                            </div>
+                        </div>                  
                     </div>
-                    <div className="col-md-3">
-                        <div className="panel panel-default">
-                            <div className="panel-heading"><b>Density Wise</b></div>
-                            <div className="panel-body">
-                                {
+                
+                    <div className="col-md-4">
+                
+                        <div className="box box-primary">
+                            <div className="box-header with-border">
+                                <h3 className="box-title">Density Wise</h3>
+                            </div>
+                
+                            <div className="box-body">
+                                <ul className="products-list product-list-in-box">
+                                    {
 
-                                    (() => {
-                                        if (this.state.mostDenFloor.length > 0) {
-                                            return  (
-                                                            <li className={`list-group-item`}   >  
-                                                                <b> By Floor: </b>{`${this.state.mostDenFloor[0].fn} Floor , Count:${this.state.mostDenFloor[0].userCount}`}
-                                                            </li>
-
-                                                    )
-                                }
-                                }) ()   
+                                                                        (() => {
+                                                                            if (this.state.mostDenFloor.length > 0) {
+                                                                                return  (
+                                                                            <li className="item">
+                                                                                <b> By Floor: </b>{`${this.state.mostDenFloor[0].fn} Floor , Count:${this.state.mostDenFloor[0].userCount}`}
+                                                                            </li>
+                                                                                        )
+                                    }
+                                    }) ()   
                 
-                                }
+                                    }
                 
                 
-                                {
-                            (() => {
-                                                if (this.state.mostDenLoc.length > 0) {
-                                                    return  (
-                                                                    <li className={`list-group-item`}   >  
-                                                                        <b> By Location : </b>{`${this.state.mostDenLoc[0].blockname} of ${this.state.mostDenLoc[0].loc.split('-')[0]} , Count: ${this.state.mostDenLoc[0].userCount}`} 
-                                                                    </li>
-                                            )
-                                }
-                                })()     
+                                    {
+                                                                                (() => {
+                                                                                    if (this.state.mostDenLoc.length > 0) {
+                                                                                        return  (
+                                                                                    <li className="item">
+                                                                                        <b> By Location : </b>{`${this.state.mostDenLoc[0].blockname} of ${this.state.mostDenLoc[0].loc.split('-')[0]} , Count: ${this.state.mostDenLoc[0].userCount}`} 
+                                                                                    </li>
+                                                                                                )
+                                    }
+                                    })()     
                 
-                                }
-                
+                                    }
+                                </ul>
                             </div>
                         </div>
-                    </div>
                 
+                
+                
+                    </div>
                 </div>
 
 
 
-                        );
+                                                        );
     }
 }
 

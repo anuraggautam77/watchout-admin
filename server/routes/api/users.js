@@ -382,13 +382,21 @@ module.exports = (apiRoutes) => {
         });
         
         
-        Promise.all([cartlist, totalQues, totalPolls, totalreferrals]).then(function (values) {
+          var recentuser = new Promise(function (resolve, reject) {
+            AppModel.recentRegsitration(req.body, (results) => {
+                resolve(results);
+            });
+        });
+        
+        
+        Promise.all([cartlist, totalQues, totalPolls, totalreferrals,recentuser]).then(function (values) {
             res.json({status: "success",
                 cartlist: values[0],
                 quecount: values[1],
                 pollcount: values[2],
                 reffcount: values[3],
-                userEngaement: ""
+                userEngaement: "",
+                rescentuserlist:values[4]
             });
 
         });

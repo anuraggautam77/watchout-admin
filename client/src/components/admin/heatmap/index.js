@@ -21,9 +21,10 @@ class Index extends Component {
             location: "",
             cratlist: [],
             pollcount: [],
-            quecount:[],
+            quecount: [],
             reffcount: [],
-            users:[],
+            users: [],
+            rescentuserlist: []
         };
     }
     componentWillMount() {
@@ -69,7 +70,8 @@ class Index extends Component {
                         pollcount: json.pollcount,
                         quecount: json.quecount,
                         reffcount: json.reffcount,
-                        users: json.userEngaement
+                        users: json.userEngaement,
+                        rescentuserlist: json.rescentuserlist
                     });
                 });
     }
@@ -110,7 +112,7 @@ class Index extends Component {
                         <button
                             onClick={() => {
                             this.floorwiseData(option.floorno);
-                                                    }}
+                                                                        }}
                             className="btn btn-success btn-xs"
                             >
                             {option.floorno} <sup>th</sup>
@@ -179,8 +181,9 @@ class Index extends Component {
                                                             quecount={this.state.quecount}
                                                             reffcount= {this.state.reffcount}
                                                             users={this.state.users}
-                                                            
-                                                            
+                                                            rescentuserlist={this.state.rescentuserlist}
+                                            
+                                            
                                                             />
                                             
                                                         <div>
@@ -198,7 +201,7 @@ class Index extends Component {
                                                                                     <button
                                                                                         onClick={() => {
                                                             this.floorwiseData("");
-                                                                                                                          }}
+                                                                                                                                                                      }}
                                                                                         className="btn btn-success btn-xs"
                                                                                         >
                                                                                         All Floor
@@ -293,7 +296,7 @@ class Index extends Component {
                                                                                                                                                                         type="button"
                                                                                                                                                                         onClick={() => {
                                                                                                                                                                 this.placeCartHandler();
-                                                                                                                                                                                                                                                                                          }}
+                                                                                                                                                                                                                                                                                                                                                                                                                  }}
                                                                                                                                                                         className="btn btn-primary"
                                                                                                                                                                         value="Place cart"
                                                                                                                                                                         />
