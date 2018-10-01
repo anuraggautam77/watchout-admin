@@ -28,9 +28,9 @@ const SERVICE_CONST = {
     FLOOR_WISE_COUNT: 'floorwsie',
     ADMIN_REGISTER: 'register',
     ADMIN_LOGIN: 'adminlogin',
-    PLACECART:"placecart",
-    UPDATE_DEVICE:'updatedeviceid',
-    CARTLIST:'cartlist'
+    PLACECART: "placecart",
+    UPDATE_DEVICE: 'updatedeviceid',
+    HOME_DETAIL: 'homedetail'
 };
 
 module.exports = (apiRoutes) => {
@@ -46,9 +46,9 @@ module.exports = (apiRoutes) => {
                     obj.status = 403;
                     obj.message = 'No token provided>>';
                 } else if (decoded) {//=== cryptr.decrypt(userid)) {
-                   // console.log(decoded);
+                    // console.log(decoded);
                     if (bcrypt.compareSync(decoded.username, userid)) {
-                     //   console.log("valid");
+                        //   console.log("valid");
                         obj.status = 200;
                         obj.message = 'valid token>>>>>';
                     }
@@ -73,9 +73,9 @@ module.exports = (apiRoutes) => {
         res.status(objCheck.status).json({status: objCheck.status, message: objCheck.message});
 
     });
-    
-     apiRoutes.post(`/${SERVICE_CONST.UPDATE_DEVICE}`, function (req, res) {
-          AppModel.updatedevice(req.body, function (result) { })
+
+    apiRoutes.post(`/${SERVICE_CONST.UPDATE_DEVICE}`, function (req, res) {
+        AppModel.updatedevice(req.body, function (result) { })
     });
 
 
@@ -91,7 +91,7 @@ module.exports = (apiRoutes) => {
                 }
                 bcrypt.hash(req.body.password, salt, null, function (err, hash) {
                     req.body.password = hash;
-                  //  console.log(hash)
+                    //  console.log(hash)
                     AppModel.adminRegis(req.body, function (result) {
                         res.json({data: result});
                     });
@@ -348,15 +348,56 @@ module.exports = (apiRoutes) => {
     });
 
 
-     apiRoutes.post(`/${SERVICE_CONST.PLACECART}`, (req, res) => {
+    apiRoutes.post(`/${SERVICE_CONST.PLACECART}`, (req, res) => {
         AppModel.placecart(req.body, (results) => {
             res.json({status: "success", result: results});
         });
     });
-    
-    apiRoutes.get(`/${SERVICE_CONST.CARTLIST}`, (req, res) => {
+
+    apiRoutes.get(`/${SERVICE_CONST.HOME_DETAIL}`, (req, res) => {
+
+        var cartlist = new Promise(function (resolve, reject) {
+            AppModel.cartlisting(req.body, (results) => {
+                resolve(results);
+            });
+        });
+
+        var totalQues = new Promise(function (resolve, reject) {
+            AppModel.quecount(req.body, (results) => {
+                resolve(results);
+            });
+        });
+        
+        
+         var totalPolls = new Promise(function (resolve, reject) {
+            AppModel.pollcount(req.body, (results) => {
+                resolve(results);
+            });
+        });
+        
+        var totalreferrals = new Promise(function (resolve, reject) {
+            AppModel.referralcount(req.body, (results) => {
+                resolve(results);
+            });
+        });
+        
+        
+        Promise.all([cartlist, totalQues, totalPolls, totalreferrals]).then(function (values) {
+            res.json({status: "success",
+                cartlist: values[0],
+                quecount: values[1],
+                pollcount: values[2],
+                reffcount: values[3],
+                userEngaement: ""
+            });
+
+        });
+
+
+
+
         AppModel.cartlisting(req, (results) => {
-            res.json({status: "success", result: results});
+          //  res.json({status: "success", result: results});
         });
     });
 

@@ -1,7 +1,6 @@
 import React, {PropTypes, Component} from 'react';
 import { withRouter } from "react-router-dom";
-//var QRCode = require('qrcode.react');
-//import './style/css/App.scss';
+ 
 import './style/css/application.scss';
  
 

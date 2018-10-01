@@ -26,3 +26,74 @@
     padding: 20px;
     border: 1px solid #888;
 }
+
+
+
+ .colorsix {
+    background: rgb(251, 177, 104);
+}
+
+ .colorfour {
+    background: rgb(162, 133, 197);
+}
+
+
+
+.colortwo {
+    background: rgb(104, 202, 182);
+   
+}
+.colorone {
+    background: rgb(102, 105, 129);
+   
+}
+
+
+
+ .colorfive {
+    background: rgb(34, 186, 155);
+}
+
+ .colorthree {
+    background: rgb(225, 118, 149);
+}
+ 
+
+
+
+.small-box {
+    border-radius: 2px;
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    color:#fff;
+}
+
+.small-box>.inner {
+    padding: 10px;
+}
+
+.small-box>.small-box-footer {
+    position: relative;
+    text-align: center;
+    padding: 3px 0;
+    color: rgb(255, 255, 255);
+    color: rgba(255,255,255,0.8);
+    display: block;
+    z-index: 10;
+    background: rgba(0,0,0,0.1);
+    text-decoration: none;
+}
+
+
+.small-box .icon {
+    transition: all .3s linear;
+    position: absolute;
+    top: 21px;
+    right: 10px;
+    z-index: 0;
+    font-size: 33px;
+    color: rgb(255, 255, 255);
+}
+

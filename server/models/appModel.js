@@ -443,7 +443,7 @@ AppModel = {
     placecart: function (objdata, callback) {
         console.log(objdata);
 
-      var  query = `merge (floor:Floor{fno:${objdata.floorno}})
+        var query = `merge (floor:Floor{fno:${objdata.floorno}})
 merge (location:Location{lid:"${objdata.lid}", projectName:"${objdata.projectname}"})
 merge (cart:Cart{cartName:"${objdata.cartname}",status:"active"})
 merge (cart)-[:PLACED_IN]-(location)-[:BELONGS_TO]->(floor) with location as loc
@@ -459,7 +459,37 @@ match (u:User)-[]-(loc) return u`;
     },
     cartlisting: function (objdata, callback) {
 
-      var  query = `match (cart:Cart{status:"active"})--(l:Location)-[:BELONGS_TO]-(f:Floor) return ID(cart) as cartid,collect(distinct cart.cartName) as cartName , collect(distinct l.lid) as lid, f.fno as fno`;
+        var query = `match (cart:Cart{status:"active"})--(l:Location)-[:BELONGS_TO]-(f:Floor) return ID(cart) as cartid,collect(distinct cart.cartName) as cartName , collect(distinct l.lid) as lid, f.fno as fno`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    quecount: function (objdata, callback) {
+
+        var query = `MATCH (q:Question)<-[]-(qu:User) return count(distinct q) as count, count(qu) as usercount`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    pollcount: function (objdata, callback) {
+
+        var query = `MATCH (p:Poll)<-[]-(pu:User) return count(distinct p) as count , count(pu) as usercount`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    referralcount: function (objdata, callback) {
+
+        var query = `MATCH (n:User)-[:REFERRED_BY]-(r:Referral) return count(n) as usercount`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;
@@ -467,9 +497,6 @@ match (u:User)-[]-(loc) return u`;
         });
 
     }
-
-
-
 
 }
 
