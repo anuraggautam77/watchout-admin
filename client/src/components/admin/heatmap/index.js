@@ -112,7 +112,7 @@ class Index extends Component {
                         <button
                             onClick={() => {
                             this.floorwiseData(option.floorno);
-                                                                        }}
+                                                                                            }}
                             className="btn btn-success btn-xs"
                             >
                             {option.floorno} <sup>th</sup>
@@ -188,10 +188,13 @@ class Index extends Component {
                                             
                                                         <div>
                                                             <div className="col-md-12 admin-allbox">
-                                                                <div className="panel panel-default">
-                                                                    <div className="panel-heading">
-                                                                        <b>Heat Map</b>
-                                                                    </div>
+                                            
+                                            
+                                            
+                                                            <div className="box box-primary">
+                                                                    <div className="box-header with-border">
+                                                                        <h3 className="box-title">Heat Map</h3>
+                                                                    </div>  
                                                                     <div className="panel-body">
                                                                         <div className="col-md-2">
                                                                             <ul className="list-group">
@@ -201,7 +204,7 @@ class Index extends Component {
                                                                                     <button
                                                                                         onClick={() => {
                                                             this.floorwiseData("");
-                                                                                                                                                                      }}
+                                                                                                                                                                                                                  }}
                                                                                         className="btn btn-success btn-xs"
                                                                                         >
                                                                                         All Floor
@@ -296,7 +299,7 @@ class Index extends Component {
                                                                                                                                                                         type="button"
                                                                                                                                                                         onClick={() => {
                                                                                                                                                                 this.placeCartHandler();
-                                                                                                                                                                                                                                                                                                                                                                                                                  }}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }}
                                                                                                                                                                         className="btn btn-primary"
                                                                                                                                                                         value="Place cart"
                                                                                                                                                                         />

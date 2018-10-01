@@ -500,7 +500,7 @@ match (u:User)-[]-(loc) return u`;
     
      recentRegsitration: function (objdata, callback) {
 
-        var query = `Match  (n:User)-[:BELONGS_TO]->(location) return ID(n) as id , location.projectName as projectname ,location.lid as lid ,n.name as name ,  ID(n) as Regid order by Regid desc LIMIT 10`;
+        var query = `Match  (n:User)-[:BELONGS_TO]->(location) return ID(n) as id , location.projectName as projectname ,location.lid as lid ,n.name as name ,  ID(n) as Regid order by Regid desc LIMIT 5`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;

@@ -119,15 +119,15 @@
         box-shadow: none;
         border-radius: 0;
         border-bottom: 1px solid #f4f4f4;
-        padding: 10px 0;
+        padding: 7px 0;
         background: white; }
         .box .box-body .products-list .item .product-img {
           float: left; }
           .box .box-body .products-list .item .product-img i {
-            font-size: 30px;
+            font-size: 20px;
             color: #c5d2cd; }
       .box .box-body .products-list .product-info {
-        margin-left: 60px; }
+        margin-left: 40px; }
         .box .box-body .products-list .product-info h4 {
           margin: 0;
           padding: 0; }

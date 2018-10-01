@@ -74,7 +74,6 @@ class Usercount extends Component {
 
     }
     render() {
-        console.log(this.state);
         return (
                 <div>
                     <div className="col-md-2">
@@ -209,10 +208,10 @@ class Usercount extends Component {
                 
                         <div className="box box-primary">
                             <div className="box-header with-border">
-                                <h3 className="box-title">Recent registered users</h3>
+                                <h3 className="box-title">Recently registered users</h3>
                             </div>
                 
-                            <div className="box-body" style={{"overflow-y":"scroll", "height":"100px"}}>
+                            <div className="box-body" style={{"overflowY":"scroll", "height":"100px"}}>
                                 <ul className="products-list product-list-in-box">
                                     {  (() => this.userlisting())() }
                                 </ul>
