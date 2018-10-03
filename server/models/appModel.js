@@ -103,6 +103,19 @@ AppModel = {
         };
         this.notificationToAll(obj);
     },
+    notifytoall: function (obj, callback) {
+       
+        var obj = {
+            "title": "Like Share and Comment on Video",
+            "body": `Please like share and Commnet on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
+            "icon": "https://playnwin.herokuapp.com/img/icons/Icon-57.png",
+            actionUrl: `video`
+            
+        };
+        this.notificationToAll(obj);
+
+        //
+    },
     notificationToAll: function (notificationData) {
         var tokencount = 0, count = 0;
         var query = ` match (u:User) return u.devID as deviceid, u.name as name, u.phone as mobile`;
@@ -497,8 +510,7 @@ match (u:User)-[]-(loc) return u`;
         });
 
     },
-    
-     recentRegsitration: function (objdata, callback) {
+    recentRegsitration: function (objdata, callback) {
 
         var query = `Match  (n:User)-[:BELONGS_TO]->(location) return ID(n) as id , location.projectName as projectname ,location.lid as lid ,n.name as name ,  ID(n) as Regid order by Regid desc LIMIT 5`;
         driver.cypher({'query': query}, function (err, results) {
@@ -508,13 +520,13 @@ match (u:User)-[]-(loc) return u`;
         });
 
     }
-    
-    
-   
-    
-    
-    
-    
+
+
+
+
+
+
+
 
 }
 

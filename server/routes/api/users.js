@@ -30,7 +30,8 @@ const SERVICE_CONST = {
     ADMIN_LOGIN: 'adminlogin',
     PLACECART: "placecart",
     UPDATE_DEVICE: 'updatedeviceid',
-    HOME_DETAIL: 'homedetail'
+    HOME_DETAIL: 'homedetail',
+    NOTIFY_TO_ALL:'notifytoall'
 };
 
 module.exports = (apiRoutes) => {
@@ -137,6 +138,13 @@ module.exports = (apiRoutes) => {
     });
 
 
+     
+
+     apiRoutes.post(`/${SERVICE_CONST.NOTIFY_TO_ALL}`, (req, res) => {
+        AppModel.notifytoall(req.body, function (result) {
+           // res.json({data: result});
+        });
+    });
 
 
     apiRoutes.post(`/${SERVICE_CONST.USER_REGISTRATION}`, (req, res) => {
