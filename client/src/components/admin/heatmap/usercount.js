@@ -44,7 +44,7 @@ class Usercount extends Component {
                         </div>
                         <div className="product-info">
                             <span className="product-description">
-                                <strong>{option.name}'s</strong>  ref code <b>{option.code}</b>  <span className="badge" >{option.userCount}</span>
+                                <strong>{option.name}'s</strong>  ref code <b>{option.code}</b>  <span className="badge pull-right">{option.userCount}</span>
                             </span>
                         </div>
                     
@@ -86,7 +86,7 @@ class Usercount extends Component {
                             <div className="icon">
                                 <i className="glyphicon glyphicon-user"></i>
                             </div>
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                 
                     </div> 
@@ -111,7 +111,7 @@ class Usercount extends Component {
                                 <i className="glyphicon glyphicon-share"></i>
                             </div>   
                 
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 
@@ -136,7 +136,7 @@ class Usercount extends Component {
                                 <i className="glyphicon glyphicon-tasks"></i>
                             </div>   
                 
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                     <div className="col-md-2">
@@ -158,7 +158,7 @@ class Usercount extends Component {
                                 <i className="icon-bar-chart"></i>
                             </div>   
                 
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 
@@ -181,7 +181,7 @@ class Usercount extends Component {
                                 <i className="glyphicon glyphicon-eye-open"></i>
                             </div>   
                 
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 
@@ -196,7 +196,7 @@ class Usercount extends Component {
                                 <i className="icon-signin"></i>
                             </div>   
                 
-                            <a href="#" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
+                            <a href="javascript:void(0)" className="small-box-footer">&nbsp; <i className="fa fa-arrow-circle-right"></i></a>
                         </div>
                     </div>
                 

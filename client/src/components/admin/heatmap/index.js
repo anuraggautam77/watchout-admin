@@ -115,8 +115,7 @@ class Index extends Component {
                                                                                             }}
                             className="btn btn-success btn-xs"
                             >
-                            {option.floorno} <sup>th</sup>
-                            Floor
+                            {option.floorno} <sup>th</sup> Floor
                         </button>{" "}
                     </li>
                         );

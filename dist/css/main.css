@@ -119,7 +119,7 @@
         box-shadow: none;
         border-radius: 0;
         border-bottom: 1px solid #f4f4f4;
-        padding: 7px 0;
+        padding: 5px 0;
         background: white; }
         .box .box-body .products-list .item .product-img {
           float: left; }
@@ -666,23 +666,23 @@ a {
   .admin-allbox .cross-disable {
     background-color: #ebebe4; }
   .admin-allbox .brown-tone {
-    background: linear-gradient(to right, #870000, #190a05);
+    background-color: #98280a;
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .slightly-blue {
-    background: linear-gradient(to right, #333333, #dd1818);
+    background-color: #d34d29;
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .moderate-orange {
-    background: linear-gradient(to right, #833ab4, #fd1d1d, #fcb045);
+    background-color: #f2977f;
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .bright-orange {
-    background: linear-gradient(to right, #fdc830, #f37335);
+    background-color: #f2cac0;
     color: #fff;
     border-color: #ffc533; }
   .admin-allbox .vivid-orange {
-    background: linear-gradient(#fffc00, white);
+    background-color: #ffffb2;
     border-color: #d8b868; }
   .admin-allbox .cross-disable {
     cursor: not-allowed; }
