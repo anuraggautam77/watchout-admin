@@ -112,7 +112,7 @@ class Index extends Component {
                         <button
                             onClick={() => {
                             this.floorwiseData(option.floorno);
-                                                                                            }}
+                                                                                                                                    }}
                             className="btn btn-success btn-xs"
                             >
                             {option.floorno} <sup>th</sup> Floor
@@ -143,11 +143,31 @@ class Index extends Component {
             })
                     .then(res => res.json())
                     .then(json => {
+                          alert("Cart has been placed for this block !")
                     });
         }
     }
+    removeCart(id) {
+        
+        fetch(`/api/removecart`, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                cartid: id
+            })
+        })
+                .then(res => res.json())
+                .then(json => {
+                    alert("Cart has been removed from Current block!")
+                });
+
+    }
     cartlist() {
         var template = this.state.cratlist.map((option, i) => {
+            console.log(option)
             return (
                     <li className={`list-group-item`} key={i}>
                         {option.cartName[0]} at
@@ -155,8 +175,12 @@ class Index extends Component {
                             {" "}
                             {option.fno} <sup>th</sup> Floor{" "}
                         </b>
+                        <button className="btn btn-primary btn-xs" onClick={() => {
+                            this.removeCart(option.cartid)
+                                        }}>Remove Cart</button>
+                    
                     </li>
-                    );
+                        );
         });
         return template;
     }
@@ -165,156 +189,155 @@ class Index extends Component {
                 <div>
                     <div className="row">
                         {(() => {
-                                        if (this.state.firstrow) {
+                                if (this.state.firstrow) {
                                             return (
-                                                    <div>
-                                                        <Usercount
-                                                            bardata={this.state.floorwisecount}
-                                                            floorwise={obj => this.floorwiseData(obj)}
-                                                            usercount={this.state.usercount}
-                                                            refferal={this.state.refferal}
-                                                            spotcount={this.state.spotcount}
-                                                            mostDenFloor={this.state.mostDenFloor}
-                                                            mostDenLoc={this.state.mostDenLoc}
-                                                            pollcount= {this.state.pollcount}
-                                                            quecount={this.state.quecount}
-                                                            reffcount= {this.state.reffcount}
-                                                            users={this.state.users}
-                                                            rescentuserlist={this.state.rescentuserlist}
-                                            
-                                            
-                                                            />
-                                            
-                                                        <div>
-                                                            <div className="col-md-12 admin-allbox">
-                                            
-                                            
-                                            
-                                                            <div className="box box-primary">
-                                                                    <div className="box-header with-border">
-                                                                        <h3 className="box-title">Heat Map</h3>
-                                                                    </div>  
-                                                                    <div className="panel-body">
-                                                                        <div className="col-md-2">
-                                                                            <ul className="list-group">
-                                                                                {(() => this.renderListButton())()}
-                                            
-                                                                                <li className={`list-group-item`}>
-                                                                                    <button
-                                                                                        onClick={() => {
-                                                            this.floorwiseData("");
-                                                                                                                                                                                                                  }}
-                                                                                        className="btn btn-success btn-xs"
-                                                                                        >
-                                                                                        All Floor
-                                                                                    </button>
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                        <div className="col-md-8">
-                                                                            <div className="chart-container">
-                                                                                {(() => {
-                                                                                                    if (this.state.onload) {
-                                                                                                        return (
-                                                                                                        <FullHeatMap
-                                                                                                            bardata={this.state.floorwisecount}
-                                                                                                            gropupdata={this.state.floorwisecount}
-                                                                                                            ongridclick={fn => {
-                                                                                                                            this.floorwiseData(fn);
-                                                                                                            }}
-                                                                                                            />
-                                                                                                                                    );
-                                                                                } else {
-                                                                                                                                return (
-                                                                                                                                <FloorWiseHeatmap
-                                                                                                                                    floorno={this.state.floorno}
-                                                                                                                                    floorwisedata={this.state.floorwisedata}
-                                                                                                                                    setcartloc={(blockid, lid) => {
-                                                                                                                                        this.setState({
-                                                                                                                                            ...this.state,
-                                                                                                                                            location: blockid,
-                                                                                                                                            lid: lid
-                                                                                                                                    });
-                                                                                                                                    }}
-                                                                                                                                    />
-                                                                                                                                            );
-                                                                                }
-                                                                                })()}
-                                                                            </div>
-                                                                        </div>
-                                                                        <div className="col-md-2">
-                                                                            {
-                                                                                                                                    (() => {
-                                                                                                                                        if (this.state.cratlist.length > 0) {
-                                                                                                                                            return (
-                                                                                                                                                <div>
-                                                                                                                                                    <div>
-                                                                                                                                                        <b>Cart Location</b>
-                                                                                                                                                    </div>
-                                                                                                                                                    <div className="panel-body">
-                                                                                                                                                        {(() => this.cartlist())()}
-                                                                                                                                                    </div>
-                                                                                                                                                </div>
-                                                                                                                                                    );
-                                                                            }
-                                                                            })()}
-                                            
-                                                                            {
-                                                                                                                                            (() => {
-                                                                                                                                                if (
-                                                                                                                                                        !this.state.onload &&
-                                                                                                                                                        this.state.location !== ""
-                                                                                                                                                        ) {
+                                                            <div>
+                                                                <Usercount
+                                                                    bardata={this.state.floorwisecount}
+                                                                    floorwise={obj => this.floorwiseData(obj)}
+                                                                    usercount={this.state.usercount}
+                                                                    refferal={this.state.refferal}
+                                                                    spotcount={this.state.spotcount}
+                                                                    mostDenFloor={this.state.mostDenFloor}
+                                                                    mostDenLoc={this.state.mostDenLoc}
+                                                                    pollcount= {this.state.pollcount}
+                                                                    quecount={this.state.quecount}
+                                                                    reffcount= {this.state.reffcount}
+                                                                    users={this.state.users}
+                                                                    rescentuserlist={this.state.rescentuserlist}
+                                                    
+                                                    
+                                                                    />
+                                                    
+                                                                <div>
+                                                                    <div className="col-md-12 admin-allbox">
+                                                    
+                                                    
+                                                    
+                                                                        <div className="box box-primary">
+                                                                            <div className="box-header with-border">
+                                                                                <h3 className="box-title">Heat Map</h3>
+                                                                            </div>  
+                                                                            <div className="panel-body">
+                                                                                <div className="col-md-2">
+                                                                                    <ul className="list-group">
+                                                                                        {(() => this.renderListButton())()}
+                                                    
+                                                                                        <li className={`list-group-item`}>
+                                                                                            <button
+                                                                                                onClick={() => {
+                                                                    this.floorwiseData("");
+                                                                                                                                                                                                                                                                                                                  }}
+                                                                                                className="btn btn-success btn-xs"
+                                                                                                >
+                                                                                                All Floor
+                                                                                            </button>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                                <div className="col-md-8">
+                                                                                    <div className="chart-container">
+                                                                                        {(() => {
+                                                                        if (this.state.onload) {
+                                                                                                                return (
+                                                                                                                                                    <FullHeatMap
+                                                                                                                                                        bardata={this.state.floorwisecount}
+                                                                                                                                                        gropupdata={this.state.floorwisecount}
+                                                                                                                                                        ongridclick={fn => {
+                                                                                                                                                                        this.floorwiseData(fn);
+                                                                                                                                                        }}
+                                                                                                                                                        />
+                                                                                                    );
+                                                                                        } else {
+                                                                                                    return (
+                                                                                                                                                                            <FloorWiseHeatmap
+                                                                                                                                                                                floorno={this.state.floorno}
+                                                                                                                                                                                floorwisedata={this.state.floorwisedata}
+                                                                                                                                                                                setcartloc={(blockid, lid) => {
+                                                                                                                                                                                    this.setState({
+                                                                                                                                                                                        ...this.state,
+                                                                                                                                                                                        location: blockid,
+                                                                                                                                                                                        lid: lid
+                                                                                                                                                                                });
+                                                                                                                                                                                }}
+                                                                                                                                                                                />
+                                                                                                            );
+                                                                                        }
+                                                                                        })()}
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div className="col-md-2">
+                                                                                    {
+                                                                                                            (() => {
+                                                                                                                                                if (this.state.cratlist.length > 0) {
                                                                                                                                                     return (
-                                                                                                                                                        <div className="panel panel-default">
-                                                                                                                                                            <div className="panel-heading">
-                                                                                                                                                                <b>Place Cart at Location</b>
-                                                                                                                                                            </div>
-                                                                                                                                                            <div className="panel-body">
-                                                                                                                                                                <div className="form-group">
-                                                                                                                                                                    <b>
-                                                                                                                                                                        {" "}
-                                                                                                                                                                        {`${this.state.floorno} Floor `}{" "}
-                                                                                                                                                                        {this.state.location}{" "}
-                                                                                                                                                                    </b>
-                                                                                                                                                                </div>
-                                                                                                                        
-                                                                                                                                                                <div className="form-group">
-                                                                                                                                                                    <label htmlFor="restore-email">
-                                                                                                                                                                        <b>Cart Number</b>
-                                                                                                                                                                    </label>
-                                                                                                                                                                    <input
-                                                                                                                                                                        className="form-control"
-                                                                                                                                                                        type="text"
-                                                                                                                                                                        size="20"
-                                                                                                                                                                        ref="cartno"
-                                                                                                                                                                        minLength="9"
-                                                                                                                                                                        maxLength="10"
-                                                                                                                                                                        placeholder="Cart No!"
-                                                                                                                                                                        />
-                                                                                                                                                                </div>
-                                                                                                                                                                <div className="form-group">
-                                                                                                                                                                    <input
-                                                                                                                                                                        type="button"
-                                                                                                                                                                        onClick={() => {
-                                                                                                                                                                this.placeCartHandler();
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          }}
-                                                                                                                                                                        className="btn btn-primary"
-                                                                                                                                                                        value="Place cart"
-                                                                                                                                                                        />
-                                                                                                                                                                </div>
-                                                                                                                                                            </div>
-                                                                                                                                                        </div>
-                                                                                                                                                                );
-                                                                            }
-                                                                            })()}
+                                                                                                                                                                                        <div>
+                                                                                                                                                                                            <div>
+                                                                                                                                                                                                <b>Cart Location</b>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            {(() => this.cartlist())()}
+                                                                                                                                                        
+                                                                                                                                                                                        </div>
+                                                                                                                            );
+                                                                                    }
+                                                                                    })()}
+                                                    
+                                                                                    {
+                                                                                                                    (() => {
+                                                                                                                                                        if (
+                                                                                                                                                                !this.state.onload &&
+                                                                                                                                                                this.state.location !== ""
+                                                                                                                                                                ) {
+                                                                                                                                                            return (
+                                                                                                                                                                                                <div className="panel panel-default">
+                                                                                                                                                                                                    <div className="panel-heading">
+                                                                                                                                                                                                        <b>Place Cart at Location</b>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                    <div className="panel-body">
+                                                                                                                                                                                                        <div className="form-group">
+                                                                                                                                                                                                            <b>
+                                                                                                                                                                                                                {" "}
+                                                                                                                                                                                                                {`${this.state.floorno} Floor `}{" "}
+                                                                                                                                                                                                                {this.state.location}{" "}
+                                                                                                                                                                                                            </b>
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                
+                                                                                                                                                                                                        <div className="form-group">
+                                                                                                                                                                                                            <label htmlFor="restore-email">
+                                                                                                                                                                                                                <b>Cart Number</b>
+                                                                                                                                                                                                            </label>
+                                                                                                                                                                                                            <input
+                                                                                                                                                                                                                className="form-control"
+                                                                                                                                                                                                                type="text"
+                                                                                                                                                                                                                size="20"
+                                                                                                                                                                                                                ref="cartno"
+                                                                                                                                                                                                                minLength="9"
+                                                                                                                                                                                                                maxLength="10"
+                                                                                                                                                                                                                placeholder="Cart No!"
+                                                                                                                                                                                                                />
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                        <div className="form-group">
+                                                                                                                                                                                                            <input
+                                                                                                                                                                                                                type="button"
+                                                                                                                                                                                                                onClick={() => {
+                                                                                                                                                                                                        this.placeCartHandler();
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  }}
+                                                                                                                                                                                                                className="btn btn-primary"
+                                                                                                                                                                                                                value="Place cart"
+                                                                                                                                                                                                                />
+                                                                                                                                                                                                        </div>
+                                                                                                                                                                                                    </div>
+                                                                                                                                                                                                </div>
+                                                                                                                                        );
+                                                                                    }
+                                                                                    })()}
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                    </div>
-                                                                                                            );
+                                                                                                    );
                         }
                         })()}
                     </div>

@@ -31,7 +31,8 @@ const SERVICE_CONST = {
     PLACECART: "placecart",
     UPDATE_DEVICE: 'updatedeviceid',
     HOME_DETAIL: 'homedetail',
-    NOTIFY_TO_ALL:'notifytoall'
+    NOTIFY_TO_ALL:'notifytoall',
+    REMOVE_CART:'removecart'
 };
 
 module.exports = (apiRoutes) => {
@@ -361,6 +362,16 @@ module.exports = (apiRoutes) => {
             res.json({status: "success", result: results});
         });
     });
+    
+     apiRoutes.post(`/${SERVICE_CONST.REMOVE_CART}`, (req, res) => {
+        AppModel.removecart(req.body, (results) => {
+            res.json({status: "success", result: results});
+        });
+    });
+    
+    
+    
+    
 
     apiRoutes.get(`/${SERVICE_CONST.HOME_DETAIL}`, (req, res) => {
 

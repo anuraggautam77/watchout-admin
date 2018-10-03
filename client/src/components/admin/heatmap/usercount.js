@@ -61,7 +61,7 @@ class Usercount extends Component {
                         </div>
                         <div className="product-info">
                             <span className="product-description">
-                                <b> {option.name} </b> from  {option.lid.split("-")[0]}loor, <b>{option.projectname}</b>
+                                <b> {option.name} </b> from  {option.lid.split("-")[0]}, <b>{option.projectname}</b>
                             </span>
                         </div>
                     </li>
@@ -190,7 +190,7 @@ class Usercount extends Component {
                             <div className="inner">
                                 <h2>{
                                                                         this.state.spotcount}</h2>
-                                <h4>Spot Registrations</h4>
+                                <h4>Foot fall</h4>
                             </div>
                             <div className="icon">
                                 <i className="icon-signin"></i>

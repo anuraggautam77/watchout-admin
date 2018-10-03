@@ -381,7 +381,7 @@ AppModel = {
         });
     },
     allusercount: function (objdata, callback) {
-        var query = `optional match (u:User)-[]-(l:Location)-[]-(f:Floor) optional match (l)-[]-(c:Cart) return f.fno as floorno, count(distinct c) as cartCount , count(distinct u) as userCount order by userCount desc`;
+        var query = `optional match (u:User)-[]-(l:Location)-[]-(f:Floor) optional match (l)-[]-(c:Cart{status:"active"}) return f.fno as floorno, count(distinct c) as cartCount , count(distinct u) as userCount order by userCount desc`;
         //console.log(query)
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -400,7 +400,7 @@ AppModel = {
     },
     floorwiseuser: function (objdata, callback) {
 
-        var query = `match (u:User)-[]-(l:Location)-[]-(f:Floor{fno:${objdata.floorid}}) optional match (l)-[]-(c:Cart) return count(distinct u) as userCount , count(distinct c) as cartCount,collect(distinct c.cartName) as cartName  , l.projectName as projName, l.lid as proid`;
+        var query = `match (u:User)-[]-(l:Location)-[]-(f:Floor{fno:${objdata.floorid}}) optional match (l)-[]-(c:Cart{status:"active"}) return count(distinct u) as userCount , count(distinct c) as cartCount,collect(distinct c.cartName) as cartName  , l.projectName as projName, l.lid as proid`;
         // console.log(query);
         driver.cypher({'query': query}, function (err, results) {
             if (err)
@@ -463,6 +463,18 @@ merge (cart)-[:PLACED_IN]-(location)-[:BELONGS_TO]->(floor) with location as loc
 match (u:User)-[]-(loc) return u`;
         console.log(query)
 
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    
+    
+    removecart: function (objdata, callback) {
+
+        var query = `match (cart:Cart) where ID(cart)=${objdata.cartid} set cart.status="inactive"`;
         driver.cypher({'query': query}, function (err, results) {
             if (err)
                 throw err;

@@ -2,22 +2,14 @@ importScripts('https://www.gstatic.com/firebasejs/3.5.2/firebase-app.js');
 importScripts('https://www.gstatic.com/firebasejs/3.5.2/firebase-messaging.js');
 
 
-const version = "1.22.21";
+const version = "0.1.21";
 const cacheName = `push-${version}`;
 self.addEventListener('install', e => {
     const timeStamp = Date.now();
     e.waitUntil(caches.open(cacheName).then(cache => {
         return cache.addAll([
-            '/',
-            '/index.html',
-            '/index.html?homescreen=1',
-            '/?homescreen=1',
-            '/js/lib.js',
-            '/js/app.js',
-            '/css/main.css'
-
-
-        ]).then(() => self.skipWaiting());
+        ])
+                .then(() => self.skipWaiting());
     })
             );
 });
@@ -26,34 +18,9 @@ self.addEventListener('activate', event => {
     event.waitUntil(self.clients.claim());
 });
 
- 
- self.addEventListener('fetch', event => {
+self.addEventListener('fetch', event => {
 
-    event.respondWith(
-        caches.match(event.request)
-            .then(response => {
-                return fetch(event.request).then(
-                    function (response) {
-                        // Dont cache if not a 200 response
-                        if (!response || response.status !== 200) {
-                            return response;
-                        }
-
-                        let responseToCache = response.clone();
-                        caches.open(cacheName)
-                            .then(function (cache) {
-                                cache.put(event.request, responseToCache);
-                            });
-
-                        return response;
-                    }
-                ) 
-            })
-    );
 });
-
- 
- 
 
 self.addEventListener('sync', function (event) {
 });
@@ -68,6 +35,9 @@ var config = {
 };
 
 firebase.initializeApp(config);
+
+//const messaging = firebase.messaging();
+
 
 self.addEventListener('push', function (event) {
     console.log('Notification Received.');
