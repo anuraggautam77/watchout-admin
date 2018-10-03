@@ -106,8 +106,8 @@ AppModel = {
     notifytoall: function (obj, callback) {
        
         var obj = {
-            "title": "Like Share and Comment on Video",
-            "body": `Please like share and Commnet on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
+            "title": "Like Share & Comment on Video",
+            "messgae": `Please like share and Commnet on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
             "icon": "https://playnwin.herokuapp.com/img/icons/Icon-57.png",
             actionUrl: `video`
             
