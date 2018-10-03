@@ -107,7 +107,7 @@ AppModel = {
        
         var obj = {
             "title": "Like Share & Comment on Video",
-            "messgae": `Please like share and Commnet on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
+            "messgae": `Please like share and comment on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
             "icon": "https://playnwin.herokuapp.com/img/icons/Icon-57.png",
             actionUrl: `video`
             
