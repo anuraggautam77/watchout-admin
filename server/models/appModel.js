@@ -106,10 +106,10 @@ AppModel = {
     notifytoall: function (obj, callback) {
        
         var obj = {
-            "title": "Like Share & Comment on Video",
-            "messgae": `Please like share and comment on Agartha Video   https://vox.publicis.sapient.com/videos/14748`,
+            "title": "Please rate us !!",
+            "messgae": `How was your experience on AGARTHA planet?`,
             "icon": "https://playnwin.herokuapp.com/img/icons/Icon-57.png",
-            actionUrl: `video`
+            actionUrl: `rating`
             
         };
         this.notificationToAll(obj);
@@ -453,6 +453,18 @@ AppModel = {
         });
 
     },
+    
+     ratingcount: function (objdata, callback) {
+        var query = `MATCH (n:UserRating)-[]-(mobile:UserPhone) RETURN count(mobile.mobile) as count`;
+        driver.cypher({'query': query}, function (err, results) {
+            if (err)
+                throw err;
+            callback(results);
+        });
+
+    },
+    
+    
     placecart: function (objdata, callback) {
         console.log(objdata);
 

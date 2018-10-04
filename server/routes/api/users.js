@@ -343,14 +343,21 @@ module.exports = (apiRoutes) => {
             });
         });
 
+        var rationgcount= new Promise(function (resolve, reject) {
+            AppModel.ratingcount(req.body, (results) => {
+                resolve(results);
+            });
+        });
 
-        Promise.all([alluserCount, spotCountData, refferalCode, mostDenLoc, mostDenFloor]).then(function (values) {
+
+        Promise.all([alluserCount, spotCountData, refferalCode, mostDenLoc, mostDenFloor,rationgcount]).then(function (values) {
             res.json({status: "success",
                 result: values[0],
                 spotcount: values[1],
                 refferal: values[2],
                 mostDenLoc: values[3],
-                mostDenFloor: values[4]
+                mostDenFloor: values[4],
+                ratingcount:values[5]
             });
 
         });

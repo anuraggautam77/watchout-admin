@@ -6,6 +6,7 @@ class Usercount extends Component {
         this.state = {
             usercount: props.usercount,
             spotcount: props.spotcount,
+            ratingcount:props.ratingcount,
             refferal: props.refferal,
             mostDenFloor: props.mostDenFloor,
             mostDenLoc: props.mostDenLoc,
@@ -31,6 +32,7 @@ class Usercount extends Component {
             quecount: props.quecount,
             reffcount: props.reffcount,
             users: props.users,
+            ratingcount:props.ratingcount,
             rescentuserlist: props.rescentuserlist
         })
     }
@@ -74,6 +76,7 @@ class Usercount extends Component {
 
     }
     render() {
+ 
         return (
                 <div>
                     <div className="col-md-2">
@@ -188,8 +191,20 @@ class Usercount extends Component {
                     <div className="col-md-2">
                         <div className="small-box colortwo">
                             <div className="inner">
-                                <h2>{
-                                                                        this.state.spotcount}</h2>
+                                <h2>{ 
+                                
+                                       (()=>{
+                                           console.log(this.state.ratingcount);
+                                        if(this.state.ratingcount.length>0){
+                                              return( this.state.spotcount +this.state.ratingcount[0].count)
+                                        }else{
+                                           return( this.state.spotcount)
+                                             } 
+                                       })()
+                                     
+                                        
+                                        
+                                        }</h2>
                                 <h4>Foot fall</h4>
                             </div>
                             <div className="icon">

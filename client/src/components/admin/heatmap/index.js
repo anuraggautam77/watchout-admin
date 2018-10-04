@@ -10,6 +10,7 @@ class Index extends Component {
         this.state = {
             usercount: "...",
             spotcount: "...",
+            ratingcount:[],
             refferal: [],
             floorwisecount: [],
             firstrow: true,
@@ -52,7 +53,8 @@ class Index extends Component {
                         refferal: json.refferal,
                         floorwisecount: json.result,
                         mostDenFloor: json.mostDenFloor,
-                        mostDenLoc: json.mostDenLoc
+                        mostDenLoc: json.mostDenLoc,
+                        ratingcount:json.ratingcount
                     });
                 });
         fetch("/api/homedetail", {
@@ -199,6 +201,7 @@ class Index extends Component {
                                                                     refferal={this.state.refferal}
                                                                     spotcount={this.state.spotcount}
                                                                     mostDenFloor={this.state.mostDenFloor}
+                                                                    ratingcount={this.state.ratingcount}
                                                                     mostDenLoc={this.state.mostDenLoc}
                                                                     pollcount= {this.state.pollcount}
                                                                     quecount={this.state.quecount}
